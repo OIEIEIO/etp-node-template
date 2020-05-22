@@ -1,0 +1,114 @@
+[[bin]]
+name = 'node-template'
+[build-dependencies.substrate-build-script-utils]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies]
+futures = '0.3.4'
+log = '0.4.8'
+parking_lot = '0.10.0'
+structopt = '0.3.8'
+
+[dependencies.node-template-runtime]
+path = '../runtime'
+version = '2.0.0-dev'
+
+[dependencies.sc-basic-authorship]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-cli]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-client-api]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies.sc-consensus]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-consensus-aura]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-executor]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-finality-grandpa]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-network]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-service]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sc-transaction-pool]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies.sp-consensus]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sp-consensus-aura]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '0.8.0-dev'
+
+[dependencies.sp-core]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies.sp-finality-grandpa]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies.sp-inherents]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies.sp-runtime]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[dependencies.sp-transaction-pool]
+git = 'https://github.com/paritytech/substrate.git'
+rev = 'b096036932c46a0b9da543fb826be20224a45bc7'
+version = '2.0.0-dev'
+
+[package]
+authors = ['Anonymous']
+build = 'build.rs'
+description = 'Substrate Node template'
+edition = '2018'
+homepage = 'https://substrate.dev'
+license = 'Unlicense'
+name = 'node-template'
+repository = 'https://github.com/paritytech/substrate/'
+version = '2.0.0-dev'
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
