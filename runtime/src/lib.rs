@@ -104,7 +104,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	transaction_version: 1,
 };
 
-pub const MILLISECS_PER_BLOCK: u64 = 6000;
+pub const MILLISECS_PER_BLOCK: u64 = 6000; /// must be changed to 500 as per Viewfin specs
 
 pub const SLOT_DURATION: u64 = MILLISECS_PER_BLOCK;
 
