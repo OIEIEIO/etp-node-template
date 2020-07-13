@@ -1,0 +1,146 @@
+[package]
+name = "dna-network-runtime"
+version = "0.6.0"
+authors = ["DNA Network <hello@DNA.network>"]
+description = "DNA node runtime for dna-network network"
+edition = "2018"
+license = "GPL-3.0"
+homepage = "https://DNA.network/"
+repository = "https://github.com/DNA-network/DNA/"
+build = "build.rs"
+
+[dependencies]
+# crates
+codec = { package = "parity-scale-codec", version = "1.3.0", default-features = false, features = ["derive"] }
+serde = { version = "1.0.106", optional = true }
+static_assertions = { version = "1.1.0" }
+# substrate primitives
+sp-api = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-authority-discovery = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-block-builder = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-consensus-babe = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-core = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-inherents = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-offchain = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-runtime = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-session = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-staking = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-std = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-transaction-pool = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sp-version = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+# DNA primitives
+DNA-primitives = { default-features = false, path = "../../primitives" }
+# substrate frame
+frame-benchmarking = { default-features = false, optional = true, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+frame-executive = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+frame-support = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+frame-system = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+frame-system-rpc-runtime-api = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-authority-discovery = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-authorship = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-babe = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-collective = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+# #pallet-democracy = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-finality-tracker = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-grandpa = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-im-online = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-indices = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-identity = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-membership = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-offences = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-randomness-collective-flip = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-recovery = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-session = { default-features = false, features = ["historical"], git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-society = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-sudo = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-timestamp = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-transaction-payment = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-transaction-payment-rpc-runtime-api = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+pallet-utility = { default-features = false, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+# DNA frame
+DNA-balances = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-balances-rpc-runtime-api = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-claims = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-elections-phragmen = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-eth-backing = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-eth-relay = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-eth-offchain = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-staking = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-staking-rpc-runtime-api = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-treasury = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+DNA-header-mmr = { default-features = false, git = "https://github.com/DNA-network/DNA-common.git", branch = "DNA-master" }
+# DNA runtime
+DNA-runtime-common = { default-features = false, path = "../common" }
+
+[build-dependencies]
+wasm-builder-runner = { package = "substrate-wasm-builder-runner", git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+
+[features]
+default = ["std"]
+no_std = []
+only-staking = []
+std = [
+	# crates
+	"codec/std",
+	"serde",
+	# substrate primitives
+	"sp-api/std",
+	"sp-authority-discovery/std",
+	"sp-block-builder/std",
+	"sp-consensus-babe/std",
+	"sp-core/std",
+	"sp-inherents/std",
+	"sp-offchain/std",
+	"sp-runtime/std",
+	"sp-session/std",
+	"sp-staking/std",
+	"sp-std/std",
+	"sp-transaction-pool/std",
+	"sp-version/std",
+	# DNA primitives
+	"DNA-primitives/std",
+	# substrate frame
+	"frame-executive/std",
+	"frame-support/std",
+	"frame-system/std",
+	"frame-system-rpc-runtime-api/std",
+	"pallet-authorship/std",
+	"pallet-authority-discovery/std",
+	"pallet-babe/std",
+	"pallet-collective/std",
+#	"pallet-democracy/std",
+	"pallet-finality-tracker/std",
+	"pallet-grandpa/std",
+	"pallet-im-online/std",
+	"pallet-indices/std",
+	"pallet-identity/std",
+	"pallet-membership/std",
+	"pallet-offences/std",
+	"pallet-randomness-collective-flip/std",
+	"pallet-recovery/std",
+	"pallet-session/std",
+	"pallet-society/std",
+	"pallet-sudo/std",
+	"pallet-timestamp/std",
+	"pallet-transaction-payment/std",
+	"pallet-transaction-payment-rpc-runtime-api/std",
+	"pallet-utility/std",
+	# DNA frame
+	"DNA-balances/std",
+	"DNA-balances-rpc-runtime-api/std",
+	"DNA-claims/std",
+	"DNA-elections-phragmen/std",
+	"DNA-eth-backing/std",
+	"DNA-eth-relay/std",
+	"DNA-eth-offchain/std",
+	"DNA-header-mmr/std",
+	"DNA-staking/std",
+	"DNA-staking-rpc-runtime-api/std",
+	"DNA-treasury/std",
+	# DNA runtime
+	"DNA-runtime-common/std",
+]
+# TODO: benchmark
+# runtime-benchmarks = [
+# 	"frame-benchmarking",
+# ]

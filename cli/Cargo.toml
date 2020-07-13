@@ -1,0 +1,68 @@
+[package]
+name = "DNA-cli"
+version = "0.6.0"
+authors = ["DNA Network <hello@DNA.network>"]
+description = "DNA Client Node"
+edition = "2018"
+license = "GPL-3.0"
+homepage = "https://DNA.network/"
+repository = "https://github.com/DNA-network/DNA/"
+build = "build.rs"
+
+[package.metadata.wasm-pack.profile.release]
+# `wasm-opt` has some problems on linux, see
+# https://github.com/rustwasm/wasm-pack/issues/781 etc.
+wasm-opt = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# crates
+log = { version = "0.4.8" }
+serde = { optional = true, version = "1.0.106" }
+serde_json = { optional = true, version = "1.0.51" }
+structopt = { version = "0.3.13" }
+tokio = { version = "0.2.18", features = ["rt-threaded"], optional = true }
+wasm-bindgen = { version = "0.2.60", optional = true }
+wasm-bindgen-futures = { version = "0.4.10", optional = true }
+# substrate frame
+# TODO: benchmark
+# frame-benchmarking-cli = { git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8", optional = true }
+# substrate client
+sc-cli = { optional = true, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sc-client-api = { git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sc-executor = { git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+sc-service = { git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+# substrate utils
+substrate-browser-utils = { optional = true, git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+# DNA service
+DNA-service = { default-features = false, path = "../service" }
+
+[build-dependencies]
+substrate-build-script-utils = { git = "https://github.com/DNA-network/substrate.git", tag = "v2.0.0-alpha.DNA.8" }
+
+[features]
+default = [
+	"wasmtime",
+	"db",
+	"cli",
+]
+wasmtime = ["sc-cli/wasmtime"]
+db = ["DNA-service/db"]
+cli = [
+	"tokio",
+	"serde",
+	"serde_json",
+	"sc-cli",
+	# TODO: benchmark
+	# "frame-benchmarking-cli",
+	"DNA-service/full-node",
+]
+browser = [
+	"wasm-bindgen",
+	"wasm-bindgen-futures",
+	"substrate-browser-utils",
+]
+# TODO: benchmark
+# runtime-benchmarks = ["service/runtime-benchmarks"]
