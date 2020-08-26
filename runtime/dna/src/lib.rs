@@ -24,6 +24,64 @@ use frame_support::{
 	construct_runtime, debug, parameter_types,
 	traits::{Imbalance, KeyOwnerProofSystem, LockIdentifier, OnUnbalanced, Randomness},
 };
+
+//Kilt zone
+pub use attestation;
+pub use ctype;
+pub use delegation;
+pub use did;
+pub use error;
+pub use portablegabi;
+
+pub mod opaque {
+	use super::*;
+
+	pub use sp_runtime::OpaqueExtrinsic as UncheckedExtrinsic;
+
+	/// Opaque block header type.
+	pub type Header = generic::Header<BlockNumber, BlakeTwo256>;
+	/// Opaque block type.
+	pub type Block = generic::Block<Header, UncheckedExtrinsic>;
+	/// Opaque block identifier type.
+	pub type BlockId = generic::BlockId<Block>;
+
+	impl_opaque_keys! {
+		pub struct SessionKeys {
+			pub aura: Aura,
+			pub grandpa: Grandpa,
+		}
+	}
+}
+
+/// This runtime version.
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: create_runtime_str!("mashnet-node"),
+	impl_name: create_runtime_str!("mashnet-node"),
+	authoring_version: 4,
+	spec_version: 5,
+	impl_version: 5,
+	apis: RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+};
+
+use grandpa::{fg_primitives, AuthorityId as GrandpaId, AuthorityList as GrandpaAuthorityList};
+use sp_api::impl_runtime_apis;
+use sp_consensus_aura::ed25519::AuthorityId as AuraId;
+use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
+use sp_runtime::{
+        create_runtime_str, generic, impl_opaque_keys,
+        traits::{
+                BlakeTwo256, Block as BlockT, IdentifyAccount, IdentityLookup, NumberFor, OpaqueKeys,
+                Saturating, Verify,
+        },
+        transaction_validity::{TransactionSource, TransactionValidity},
+        ApplyExtrinsicResult, MultiSignature,
+};
+
+//end Kilt zone
+
+
+
 use pallet_grandpa::{fg_primitives, AuthorityId as GrandpaId};
 use pallet_im_online::sr25519::AuthorityId as ImOnlineId;
 use pallet_session::historical as pallet_session_historical;
@@ -111,6 +169,7 @@ impl frame_system::Trait for Runtime {
 	type OnKilledAccount = ();
 }
 
+
 parameter_types! {
 	pub const EpochDuration: u64 = BLOCKS_PER_SESSION as _;
 	pub const ExpectedBlockTime: Moment = MILLISECS_PER_BLOCK;
@@ -189,6 +248,10 @@ impl pallet_offences::Trait for Runtime {
 impl pallet_session::historical::Trait for Runtime {
 	type FullIdentification = DNA_staking::Exposure<AccountId, Balance, Balance>;
 	type FullIdentificationOf = DNA_staking::ExposureOf<Runtime>;
+}
+
+impl aura::Trait for Runtime {
+	type AuthorityId = AuraId;
 }
 
 impl_opaque_keys! {
@@ -348,6 +411,19 @@ impl pallet_utility::Trait for Runtime {
 	type MultisigDepositBase = MultisigDepositBase;
 	type MultisigDepositFactor = MultisigDepositFactor;
 	type MaxSignatories = MaxSignatories;
+}
+
+impl session::Trait for Runtime {
+	type Event = Event;
+	type ValidatorId = AccountId;
+	type ValidatorIdOf = ();
+	type ShouldEndSession = session::PeriodicSessions<Period, Offset>;
+	type NextSessionRotation = ();
+	type SessionManager = ();
+	type SessionHandler = <opaque::SessionKeys as OpaqueKeys>::KeyTypeIdProviders;
+	type Keys = opaque::SessionKeys;
+	type DisabledValidatorsThreshold = DisabledValidatorsThreshold;
+	type WeightInfo = ();
 }
 
 parameter_types! {
@@ -725,6 +801,13 @@ construct_runtime!(
 
 		// Governance stuff; uncallable initially.
 		Treasury: DNA_treasury::{Module, Call, Storage, Event<T>},
+
+		Ctype: ctype::{Module, Call, Storage, Event<T>},
+		Attestation: attestation::{Module, Call, Storage, Event<T>},
+		Delegation: delegation::{Module, Call, Storage, Event<T>},
+		Did: did::{Module, Call, Storage, Event<T>},
+		Portablegabi: portablegabi::{Module, Call, Storage, Event<T>},
+
 	}
 );
 
@@ -847,15 +930,14 @@ impl_runtime_apis! {
 			)
 		}
 
-		fn generate_key_ownership_proof(
+	fn generate_key_ownership_proof(
 			_set_id: fg_primitives::SetId,
-			authority_id: fg_primitives::AuthorityId,
+			_authority_id: GrandpaId,
 		) -> Option<fg_primitives::OpaqueKeyOwnershipProof> {
-			use codec::Encode;
-
-			Historical::prove((fg_primitives::KEY_TYPE, authority_id))
-				.map(|p| p.encode())
-				.map(fg_primitives::OpaqueKeyOwnershipProof::new)
+			// NOTE: this is the only implementation possible since we've
+			// defined our key owner proof type as a bottom type (i.e. a type
+			// with no values).
+			None
 		}
 	}
 
